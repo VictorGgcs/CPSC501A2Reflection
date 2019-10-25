@@ -12,13 +12,30 @@ public class Inspector {
     	
     	//1) Name of Declaring Class
     	System.out.println("\nName of Declared Class: " + c.getName());
-    	
+    	System.out.println();
     	
     	//4)the constructors the class declares, FOR EACH
+    	System.out.println("~~~Constructor~~~: ");
+    	Constructor[] constr = c.getDeclaredConstructors();
+    	for (int i =0; i < constr.length; i++) {
 	    	//a) The name
+    		System.out.println("Name: " + constr[i].getName());
 	    	//b) The Parameter types
+    		System.out.print("Parameters: ");
+    		Parameter[] param = constr[i].getParameters();
+    		if (param.length == 0) {
+        		System.out.println("NONE");
+        	} else {
+	    		for (int o=0;o<param.length;o++) {
+	    			System.out.print(param[o].getType().getName() + " ");
+	    		}
+	    		System.out.println();
+        	}
+    		
 	    	//c)The modifiers
-    	
+    		System.out.println("Modifier: " + Modifier.toString(constr[i].getModifiers()));
+    		System.out.println();
+    	}
     	
     	
     	
@@ -29,6 +46,7 @@ public class Inspector {
 	    	//c) The Parameter types
 	    	//d) The return type
  	    	//e) The modifiers  	
+    	System.out.println("~~~Methods~~~:");
     	Method[] m;
     	//m = c.getMethods();			//All public Methods (Includes inherited)
     	m = c.getDeclaredMethods();		//All declared Methods (Not includes inherited
@@ -80,10 +98,8 @@ public class Inspector {
     	
     	
     	//6) The fields the class declares
-    	System.out.println("Fields: ");
+    	System.out.println("~~~Fields~~~: ");
     	Field[] fields = c.getDeclaredFields();
-    	
-    	System.out.println(fields.length);
     	for (int i=0; i < fields.length; i++) {
     		//a) The name
     		System.out.println("Name: " + fields[i].getName());
@@ -119,6 +135,9 @@ public class Inspector {
 	    		} else {
 	    			if (recursive == false) {
 	    				System.out.println(fields[i].getType().getName() + "@" + System.identityHashCode(fields[i]));
+	    			} else if (recursive == true ) {
+	    				///Something
+	    				
 	    			}
 	    			
 	    			
@@ -127,8 +146,6 @@ public class Inspector {
 				System.out.println(e);
 			}
     		
-    		
-	    		//e) sdklfjsldksdlfksjdlksjf
     		
     		System.out.println();
     	}
@@ -144,7 +161,7 @@ public class Inspector {
     	 * isPrimitive() to check if class object is primitive 
     	 * 
     	 */
-    	System.out.println("SuperClass Herarchy:");
+    	System.out.println("~~~SuperClass Herarchy:~~~");
     	int superCount = 0;
     	Class superClass;
     	superClass = c.getSuperclass();				//Retrieves the Super Class

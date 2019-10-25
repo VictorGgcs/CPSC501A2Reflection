@@ -12,9 +12,7 @@ public class Inspector {
     	System.out.println("Name of Declared Object: " + obj.getClass());
     	
     	
-    	//2) Name of the immediate super-class
-    	
-    	//3) Name of each interface the class implements
+
     	//4)the constructors the class declares, FOR EACH
 	    	//a) The name
 	    	//b) The Parameter types
@@ -34,10 +32,41 @@ public class Inspector {
 	    		//e) sdklfjsldksdlfksjdlksjf
     	
     	
+    	//2) Name of the immediate super-class
+    			//Maybe replace with running Inspection again
+    	int superCount = 0;
+    	Class superClass;
+    	do {
+	    	superClass = c.getSuperclass();												//Retrieves the Super Class
+	    	
+	    	if (superClass == null) {													//If End of Herarchy
+	    		for (int i=0; i < superCount ; i++) { System.out.print("    ");}		//Creates Indentation for Output
+	    		System.out.println("Super-class is a primitive type, void, interface, or Object Class");
+	    	} else {
+	    		
+		    	try {
+					Object superObj = superClass.newInstance();
+					for (int i=0; i < superCount ; i++) {
+		    			System.out.print("    ");
+		    		}
+					
+				} catch (InstantiationException | IllegalAccessException e) { System.out.println(e); }
+		    }
+    	} while (superClass != null);	
     	
     	
+    	
+    	
+    	//3) Name of each interface the class implements
+    		//Similar to Super-Class
     	
     	
     }
+    
+    
+    
+    
+    
+    
 
 }

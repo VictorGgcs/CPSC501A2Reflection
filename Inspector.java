@@ -69,8 +69,8 @@ public class Inspector {
     		
     		//Modifiers
     		System.out.print("Modifiers: ");
-    		int MoTypes = m[i].getModifiers();
-    		System.out.println(MoTypes);
+    		int MoTypes = m[i].getModifiers();	
+    		System.out.println(Modifier.toString(MoTypes));
     		System.out.println();
     	}
     	

@@ -162,7 +162,8 @@ public class Inspector {
     	 * 
     	 */
     	System.out.println("~~~SuperClass Herarchy:~~~");
-    	int superCount = 0;
+    	System.out.println(c.getName());
+    	int superCount = 1;
     	Class superClass;
     	superClass = c.getSuperclass();				//Retrieves the Super Class
     	do {
@@ -170,16 +171,12 @@ public class Inspector {
 	    	
 	    	if (superClass == null) {													//If End of Herarchy
 	    		for (int i=0; i < superCount ; i++) { System.out.print("    ");}		//Creates Indentation for Output
-	    		System.out.println("Super-class is a primitive type, void, interface, or Object Class");
+	    		System.out.println("Super-class is a primitive type, void, interface");
 	    	} else {
-	    		
-		    	try {
-					Object superObj = superClass.newInstance();
-					for (int i=0; i < superCount ; i++) {
-		    			System.out.print("    ");
-		    		}
-					System.out.println(superClass.getName());
-				} catch (InstantiationException | IllegalAccessException e) { System.out.println(e); }
+				for (int i=0; i < superCount ; i++) {
+	    			System.out.print("    ");
+	    		}
+				System.out.println(superClass.getName());
 		    }
 	    	
 	    	Class superClassTemp = superClass.getSuperclass();

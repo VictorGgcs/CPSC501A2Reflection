@@ -20,7 +20,7 @@ public final class ClassA implements java.io.Serializable, Runnable {
     public void run() {
     }
 
-    public int getVal() {
+    protected int getVal() {
         return val;
     }
 

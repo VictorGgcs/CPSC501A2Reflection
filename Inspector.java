@@ -11,7 +11,7 @@ public class Inspector {
     private void inspectClass(Class c, Object obj, boolean recursive, int depth) {
     	
     	//1) Name of Declaring Class
-    	System.out.println("Name of Declared Class: " + c.getName());
+    	System.out.println("\nName of Declared Class: " + c.getName());
     	
     	
     	//4)the constructors the class declares, FOR EACH
@@ -45,17 +45,33 @@ public class Inspector {
 	    		for (int o=0; o<ExTypes.length; o++) {
 	    			System.out.print(ExTypes[o].getTypeName() + " ");
 	    		}
-	    		System.out.println("");
+	    		System.out.println();
     		}
     		
     		
-    		System.out.println("Parameter Types: ");
-    		System.out.println("Return Type: ");
-    		System.out.println("Modifiers: ");
-    		System.out.println();
-    		m[i].getDeclaringClass();
-    		m[i].getExceptionTypes();
+    		//Parameter Types
+    		System.out.print("Parameter Types: ");
+    		Class[] PaTypes = m[i].getParameterTypes();
+    		if (PaTypes.length == 0) {
+    			System.out.println("NONE");
+    		} else {
+    			for (int o=0; o<PaTypes.length; o++) {
+	    			System.out.print(PaTypes[o].getTypeName() + " ");
+	    		}
+	    		System.out.println();
+    		}
     		
+    		//Return Type
+    		System.out.print("Return Type: ");
+    		Class ReType = m[i].getReturnType();
+    		System.out.println(ReType);
+    		
+    		
+    		//Modifiers
+    		System.out.print("Modifiers: ");
+    		int MoTypes = m[i].getModifiers();
+    		System.out.println(MoTypes);
+    		System.out.println();
     	}
     	
     	

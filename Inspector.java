@@ -186,14 +186,28 @@ public class Inspector {
     	
     	
     	
-    	
+    	System.out.println();
     	//3) Name of each interface the class implements
     		//Similar to Super-Class
+    	System.out.println("~~~Interface Hierarchy~~~:");
+    	System.out.println(c.getName());
+    	int interCount = 1;
+    	
+    	Class[] superInterface = c.getInterfaces();
+    	interfaceHierarchy(superInterface, interCount);
+    }
+    
+    public static void interfaceHierarchy(Class[] c, int count) {
+    	for (int i=0; i<c.length;i++) {
+    		for (int o=0; o<count;o++) {
+    			System.out.print("    ");
+    		}
+    		System.out.println(c[i].getName());
+    		interfaceHierarchy(c[i].getInterfaces(), count+1);
+    	}
     	
     	
     }
-    
-    
     
     
     

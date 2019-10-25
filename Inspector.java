@@ -1,3 +1,5 @@
+import java.lang.reflect.*;
+
 
 public class Inspector {
 
@@ -9,21 +11,58 @@ public class Inspector {
     private void inspectClass(Class c, Object obj, boolean recursive, int depth) {
     	
     	//1) Name of Declaring Class
-    	System.out.println("Name of Declared Object: " + obj.getClass());
+    	System.out.println("Name of Declared Class: " + c.getName());
     	
     	
-
     	//4)the constructors the class declares, FOR EACH
 	    	//a) The name
 	    	//b) The Parameter types
 	    	//c)The modifiers
     	
+    	
+    	
+    	
+    	
     	//5) The methods the class declares, for each, also find
 	    	//a) The name
-	    	//b)The Exceptions throw
+	    	//b) The Exceptions throw
 	    	//c) The Parameter types
 	    	//d) The return type
  	    	//e) The modifiers  	
+    	Method[] m;
+    	//m = c.getMethods();			//All public Methods (Includes inherited)
+    	m = c.getDeclaredMethods();		//All declared Methods (Not includes inherited
+    	for (int i=0; i< m.length; i++) {
+    		System.out.println("Declaring Class: " + m[i].getDeclaringClass().getName());
+    		System.out.println("Method Name: " + m[i].getName());
+    		
+    		//Exception Part
+    		System.out.print("Exceptions Thrown: ");
+    		Class[] ExTypes = m[i].getExceptionTypes();
+    		if (ExTypes.length == 0) {
+    			System.out.println("NONE");
+    		} else {
+	    		for (int o=0; o<ExTypes.length; o++) {
+	    			System.out.print(ExTypes[o].getTypeName() + " ");
+	    		}
+	    		System.out.println("");
+    		}
+    		
+    		
+    		System.out.println("Parameter Types: ");
+    		System.out.println("Return Type: ");
+    		System.out.println("Modifiers: ");
+    		System.out.println();
+    		m[i].getDeclaringClass();
+    		m[i].getExceptionTypes();
+    		
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
     	//6) The fields the class declares
     		//a) The name
 	    	//b) The type
@@ -34,10 +73,17 @@ public class Inspector {
     	
     	//2) Name of the immediate super-class
     			//Maybe replace with running Inspection again
+    	
+    	/*
+    	 * isPrimitive() to check if class object is primitive 
+    	 * 
+    	 */
+    	System.out.println("SuperClass Herarchy:");
     	int superCount = 0;
     	Class superClass;
+    	superClass = c.getSuperclass();				//Retrieves the Super Class
     	do {
-	    	superClass = c.getSuperclass();												//Retrieves the Super Class
+	    											
 	    	
 	    	if (superClass == null) {													//If End of Herarchy
 	    		for (int i=0; i < superCount ; i++) { System.out.print("    ");}		//Creates Indentation for Output
@@ -49,9 +95,13 @@ public class Inspector {
 					for (int i=0; i < superCount ; i++) {
 		    			System.out.print("    ");
 		    		}
-					
+					System.out.println(superClass.getName());
 				} catch (InstantiationException | IllegalAccessException e) { System.out.println(e); }
 		    }
+	    	
+	    	Class superClassTemp = superClass.getSuperclass();
+	    	superClass = superClassTemp;
+	    	superCount++;
     	} while (superClass != null);	
     	
     	

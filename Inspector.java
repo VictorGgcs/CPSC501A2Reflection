@@ -33,7 +33,7 @@ public class Inspector {
     	//m = c.getMethods();			//All public Methods (Includes inherited)
     	m = c.getDeclaredMethods();		//All declared Methods (Not includes inherited
     	for (int i=0; i< m.length; i++) {
-    		System.out.println("Declaring Class: " + m[i].getDeclaringClass().getName());
+    		
     		System.out.println("Method Name: " + m[i].getName());
     		
     		//Exception Part
@@ -80,11 +80,61 @@ public class Inspector {
     	
     	
     	//6) The fields the class declares
+    	System.out.println("Fields: ");
+    	Field[] fields = c.getDeclaredFields();
+    	
+    	System.out.println(fields.length);
+    	for (int i=0; i < fields.length; i++) {
     		//a) The name
-	    	//b) The type
+    		System.out.println("Name: " + fields[i].getName());
+    		
+    		//b) The type
+    		String fieldType = fields[i].getType().getName();
+    		System.out.println("Type: " + fieldType);
 	    	//c) The modifiers
+    		System.out.println("Modifier: " + Modifier.toString(fields[i].getModifiers()));
 	    	//d) The current value of each field
+    		System.out.print("Current Value: ");
+    		
+    		try {
+    			fields[i].setAccessible(true);
+	    		if (fieldType == "null") {
+	    			System.out.println("null");
+	    		} else if (fieldType == "boolean") {
+					System.out.println(fields[i].getBoolean(obj));
+	    		} else if (fieldType == "char") {
+	    			System.out.println(fields[i].getChar(obj));
+	    		} else if (fieldType == "double") {
+	    			System.out.println(fields[i].getDouble(obj));
+	    		} else if (fieldType == "float") {
+	    			System.out.println((fields[i].getFloat(obj)));
+	    		} else if (fieldType == "int") {
+	    			System.out.println(fields[i].getInt(obj));
+	    		} else if (fieldType == "long") {
+	    			System.out.println(fields[i].getLong(obj));
+	    		} else if (fieldType == "byte") {
+	    			System.out.println(fields[i].getByte(obj));
+	    		} else if (fieldType == "short") {
+	    			System.out.println(fields[i].getShort(obj));
+	    		} else {
+	    			if (recursive == false) {
+	    				System.out.println(fields[i].getType().getName() + "@" + System.identityHashCode(fields[i]));
+	    			}
+	    			
+	    			
+	    		}
+    		} catch (IllegalArgumentException | IllegalAccessException e) {
+				System.out.println(e);
+			}
+    		
+    		
 	    		//e) sdklfjsldksdlfksjdlksjf
+    		
+    		System.out.println();
+    	}
+    	System.out.println();
+    	
+	    	
     	
     	
     	//2) Name of the immediate super-class

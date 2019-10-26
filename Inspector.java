@@ -190,6 +190,11 @@ public class Inspector {
 			}
     		
     		
+    		if (recursive == true) {
+    			indent(depth);
+    			System.out.println("~~~Recursively going through Field~~~");
+    			inspectClass(fieldType.getClass(), obj, recursive, depth+1);
+    		}
     		System.out.println();
     	}
     	System.out.println();

@@ -17,7 +17,7 @@ public class Inspector {
     	//2)
     	System.out.println("~~~SuperClass Herarchy:~~~");
     	superHierarchy(c);
-		
+    	System.out.println();
     	
     	//3) Name of each interface the class implements
 		//Similar to Super-Class
@@ -26,7 +26,7 @@ public class Inspector {
 		int interCount = 1;
 		Class[] superInterface = c.getInterfaces();
 		interfaceHierarchy(superInterface, interCount);
-    	
+		System.out.println();
     	
     	
     	
@@ -197,8 +197,7 @@ public class Inspector {
 			superClass = superClassTemp;
 			superCount++;
 		} while (superClass != null);	
-		
-		System.out.println();    	
+	
     }
     
     
@@ -212,9 +211,16 @@ public class Inspector {
     		interfaceHierarchy(c[i].getInterfaces(), count+1);
     	}
     	
-    	System.out.println();
+    	
     }
     
+    
+    //Indents by the int given
+    public static void indent(int i) {
+    	for (int o =0; o < i; o++) {
+    		System.out.print("  ");
+    	}
+    }
     
     
     

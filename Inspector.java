@@ -11,26 +11,40 @@ public class Inspector {
 
     private void inspectClass(Class c, Object obj, boolean recursive, int depth) {
     	
+    	
+    	if (c.getName() == null) {
+    		return;
+    	}
+
     	//1) Name of Declaring Class
     	indent(depth);
     	System.out.println("Name of Declared Class: " + c.getName());
     	System.out.println();
     	
-    	//2)
-    	indent(depth);
-    	System.out.println("~~~SuperClass Herarchy:~~~");
-    	superHierarchy(c, depth);
-    	System.out.println();
     	
-    	//3) Name of each interface the class implements
-		//Similar to Super-Class
-    	indent(depth);
-		System.out.println("~~~Interface Hierarchy~~~:");
-		indent(depth+1);
-		System.out.println(c.getName());
-		Class[] superInterface = c.getInterfaces();
-		interfaceHierarchy(superInterface, depth+2);
-		System.out.println();
+    	
+    	
+    	
+    	if (c.equals(Object.class) || c.isPrimitive()) {
+    		indent(depth);
+    		System.out.println("Highest class, no SuperClass exist");
+    	} else {
+    		//2)
+        	indent(depth);
+        	System.out.println("~~~SuperClass Herarchy:~~~");
+        	superHierarchy(c, depth);
+        	System.out.println();
+        	
+        	//3) Name of each interface the class implements
+    		//Similar to Super-Class
+        	indent(depth);
+    		System.out.println("~~~Interface Hierarchy~~~:");
+    		indent(depth+1);
+    		System.out.println(c.getName());
+    		Class[] superInterface = c.getInterfaces();
+    		interfaceHierarchy(superInterface, depth+2);
+    		System.out.println();
+    	}
     	
     	
     	
@@ -178,9 +192,12 @@ public class Inspector {
     	}
     	System.out.println();
     	
-	    	
-    	
-    	
+    	if (!(c.equals(Object.class) || c.isPrimitive())) {
+    		System.out.println("\n");
+    		indent(depth);
+	    	System.out.println("~~~Going through superclasses~~~");
+	    	inspectClass(c.getSuperclass(), obj, recursive, depth+1);
+    	}
     	
     }
     
@@ -224,7 +241,7 @@ public class Inspector {
     //Indents by the int given
     public static void indent(int i) {
     	for (int o =0; o < i; o++) {
-    		System.out.print("  ");
+    		System.out.print("    ");
     	}
     }
     

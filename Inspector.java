@@ -14,6 +14,22 @@ public class Inspector {
     	System.out.println("\nName of Declared Class: " + c.getName());
     	System.out.println();
     	
+    	//2)
+    	System.out.println("~~~SuperClass Herarchy:~~~");
+    	superHierarchy(c);
+		
+    	
+    	//3) Name of each interface the class implements
+		//Similar to Super-Class
+		System.out.println("~~~Interface Hierarchy~~~:");
+		System.out.println(c.getName());
+		int interCount = 1;
+		Class[] superInterface = c.getInterfaces();
+		interfaceHierarchy(superInterface, interCount);
+    	
+    	
+    	
+    	
     	//4)the constructors the class declares, FOR EACH
     	System.out.println("~~~Constructor~~~: ");
     	Constructor[] constr = c.getDeclaredConstructors();
@@ -154,48 +170,38 @@ public class Inspector {
 	    	
     	
     	
-    	//2) Name of the immediate super-class
-    			//Maybe replace with running Inspection again
     	
-    	/*
-    	 * isPrimitive() to check if class object is primitive 
-    	 * 
-    	 */
-    	System.out.println("~~~SuperClass Herarchy:~~~");
-    	System.out.println(c.getName());
-    	int superCount = 1;
-    	Class superClass;
-    	superClass = c.getSuperclass();				//Retrieves the Super Class
-    	do {
-	    											
-	    	
-	    	if (superClass == null) {													//If End of Herarchy
-	    		for (int i=0; i < superCount ; i++) { System.out.print("    ");}		//Creates Indentation for Output
-	    		System.out.println("Super-class is a primitive type, void, interface");
-	    	} else {
+    }
+    
+    
+    
+    public static void superHierarchy(Class c) {
+		 //2) Name of the immediate super-class
+		//Maybe replace with running Inspection again
+		System.out.println(c.getName());
+		int superCount = 1;
+		Class superClass;
+		superClass = c.getSuperclass();				//Retrieves the Super Class
+		do {
+			if (superClass == null) {													//If End of Herarchy
+				for (int i=0; i < superCount ; i++) { System.out.print("    ");}		//Creates Indentation for Output
+				System.out.println("Super-class is a primitive type, void, interface");
+			} else {
 				for (int i=0; i < superCount ; i++) {
-	    			System.out.print("    ");
-	    		}
+					System.out.print("    ");
+				}
 				System.out.println(superClass.getName());
 		    }
-	    	
-	    	Class superClassTemp = superClass.getSuperclass();
-	    	superClass = superClassTemp;
-	    	superCount++;
-    	} while (superClass != null);	
-    	
-    	
-    	
-    	System.out.println();
-    	//3) Name of each interface the class implements
-    		//Similar to Super-Class
-    	System.out.println("~~~Interface Hierarchy~~~:");
-    	System.out.println(c.getName());
-    	int interCount = 1;
-    	
-    	Class[] superInterface = c.getInterfaces();
-    	interfaceHierarchy(superInterface, interCount);
+			
+			Class superClassTemp = superClass.getSuperclass();
+			superClass = superClassTemp;
+			superCount++;
+		} while (superClass != null);	
+		
+		System.out.println();    	
     }
+    
+    
     
     public static void interfaceHierarchy(Class[] c, int count) {
     	for (int i=0; i<c.length;i++) {
@@ -206,7 +212,7 @@ public class Inspector {
     		interfaceHierarchy(c[i].getInterfaces(), count+1);
     	}
     	
-    	
+    	System.out.println();
     }
     
     

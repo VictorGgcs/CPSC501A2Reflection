@@ -29,8 +29,8 @@ public class Inspector {
     	indent(depth);
     	System.out.println("~~~SuperClass Herarchy:~~~");
     	
-    	if (c.equals(Object.class) || c.isPrimitive() || c.getInterfaces().length == 0) {
-    		indent(depth);
+    	if (c.equals(Object.class) || c.isPrimitive() || c.getInterfaces().length == 0 || c.equals(String.class)) {
+    		indent(depth+1);
     		System.out.println("Highest class, no SuperClass exist or Interface");
     	} else {
     		
@@ -189,17 +189,17 @@ public class Inspector {
 				System.out.println(e);
 			}
     		
-    		
-    		if (recursive == true) {
+    		//SDLFJASFGIOAI#AWOIJADLKAJSLFIASDHLSAKDFLASKDFJSADLKF JASDLKFAJDALSDJFASDASLDKFJ
+    		if (recursive == true ||  !c.equals(Class.class)) {
     			indent(depth);
     			System.out.println("~~~Recursively going through Field~~~");
-    			inspectClass(fieldType.getClass(), obj, recursive, depth+1);
+    			inspectClass(fields[i].getType().getClass(), obj, recursive, depth+1);
     		}
     		System.out.println();
     	}
     	System.out.println();
     	
-    	if (!(c.equals(Object.class) || c.isPrimitive() || c.getInterfaces().length ==0)) {
+    	if (!(c.equals(Object.class) || c.isPrimitive() || c.getInterfaces().length ==0 || c.getClass().equals(Class.class))) {
     		System.out.println("\n");
     		indent(depth);
 	    	System.out.println("~~~Going through superclasses~~~");

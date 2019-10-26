@@ -11,7 +11,9 @@ public class Inspector {
 
     private void inspectClass(Class c, Object obj, boolean recursive, int depth) {
     	
-    	
+    	if (c == null) {
+    		return;
+    	}
     	if (c.getName() == null) {
     		return;
     	}
@@ -23,15 +25,15 @@ public class Inspector {
     	
     	
     	
+    	//2)
+    	indent(depth);
+    	System.out.println("~~~SuperClass Herarchy:~~~");
     	
-    	
-    	if (c.equals(Object.class) || c.isPrimitive()) {
+    	if (c.equals(Object.class) || c.isPrimitive() || c.getInterfaces().length == 0) {
     		indent(depth);
-    		System.out.println("Highest class, no SuperClass exist");
+    		System.out.println("Highest class, no SuperClass exist or Interface");
     	} else {
-    		//2)
-        	indent(depth);
-        	System.out.println("~~~SuperClass Herarchy:~~~");
+    		
         	superHierarchy(c, depth);
         	System.out.println();
         	
@@ -192,11 +194,18 @@ public class Inspector {
     	}
     	System.out.println();
     	
-    	if (!(c.equals(Object.class) || c.isPrimitive())) {
+    	if (!(c.equals(Object.class) || c.isPrimitive() || c.getInterfaces().length ==0)) {
     		System.out.println("\n");
     		indent(depth);
 	    	System.out.println("~~~Going through superclasses~~~");
 	    	inspectClass(c.getSuperclass(), obj, recursive, depth+1);
+    	}
+    	
+    	
+    	//Recursively go through interfaces
+    	Class[] superInterface = c.getInterfaces();
+    	if (superInterface.length != 0) {
+    		inspectClass(superInterface[0], obj, recursive, depth+1);
     	}
     	
     }
@@ -218,9 +227,13 @@ public class Inspector {
 				indent(depth+2);
 				System.out.println(superClass.getName());
 		    }
-			
+			try {
 			Class superClassTemp = superClass.getSuperclass();
 			superClass = superClassTemp;
+			} catch (java.lang.NullPointerException e) {
+				return;
+			}
+			
 			depth++;
 		} while (superClass != null);	
 	
